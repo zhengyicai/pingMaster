@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qzi.cms.server.mapper.SuyuanWeightMapper">
+    <!-- 注册界面获取小区数据 -->
+    <select id="findAll1" resultType="SuyuanWeightPo" parameterType="SuyuanWeightPo">
+        select * from suyuan_weight
+        <where>
+            1=1
+        </where>
+        order by
+        CAST(sort AS SIGNED)
+        limit #{startRow}, #{pageSize};
+    </select>
+
+
+
+
+
+    <select id="findCount1" resultType="long" parameterType="SuyuanWeightPo">
+        select count(1) from suyuan_weight
+        <where>
+                    1=1
+
+
+        </where>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qzi.cms.server.mapper.SysEquipmentMapper">
+    <!-- 注册界面获取小区数据 -->
+    <select id="findAll" resultType="SysEquipmentVo" parameterType="SysEquipmentVo">
+        select * from sys_equipment
+        <where>
+            1=1
+            <if test="model.userName != null and model.userName !=''">
+                and  userName = #{model.userName}
+            </if>
+
+            <if test="model.equipmentNo != null and model.equipmentNo !=''">
+                <bind name="pun" value="'%'+model.equipmentNo+'%'"/>
+                   and  (equipmentNo LIKE #{pun} or equipmentName1 LIKE #{pun})
+            </if>
+            <if test="model.userId != null and model.userId !=''">
+                and userId = #{model.userId}
+            </if>
+            <if test="model.agentUserId != null and model.agentUserId !=''">
+                and agentUserId = #{model.agentUserId}
+            </if>
+            <if test="model.type != null and model.type !=''">
+                and type = #{model.type}
+            </if>
+
+            <if test="model.state != null and model.state !=''">
+               and state = #{model.state}
+           </if>
+        </where>
+        order by createTime desc
+        limit #{startRow}, #{pageSize};
+    </select>
+
+    <select id="findCount" resultType="long" parameterType="SysEquipmentVo">
+        select count(1) from sys_equipment
+        <where>
+                    1=1
+                    <if test="model.userName != null and model.userName !=''">
+                        and  userName = #{model.userName}
+
+                    </if>
+                       <if test="model.equipmentNo != null and model.equipmentNo !=''">
+                           <bind name="pun" value="'%'+model.equipmentNo+'%'"/>
+                            and  (equipmentNo LIKE #{pun} or equipmentName1 LIKE #{pun})
+                       </if>
+                    <if test="model.userId != null and model.userId !=''">
+                        and userId = #{model.userId}
+                    </if>
+                    <if test="model.agentUserId != null and model.agentUserId !=''">
+                        and agentUserId = #{model.agentUserId}
+                    </if>
+                    <if test="model.type != null and model.type !=''">
+                        and type = #{model.type}
+                    </if>
+                    <if test="model.state != null and model.state !=''">
+                          and state = #{model.state}
+                      </if>
+        </where>
+    </select>
+
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qzi.cms.server.mapper.SuyuanClassesMapper">
+    <!-- 注册界面获取小区数据 -->
+    <select id="findAll1" resultType="SuyuanClassesPo" parameterType="SuyuanClassesPo">
+        select * from suyuan_classes
+        <where>
+            1=1
+        </where>
+        order by
+        CAST(sort AS SIGNED)
+        limit #{startRow}, #{pageSize};
+    </select>
+
+
+
+
+
+    <select id="findCount1" resultType="long" parameterType="SuyuanClassesPo">
+        select count(1) from suyuan_classes
+        <where>
+                    1=1
+
+
+        </where>
+    </select>
+
+
+</mapper>

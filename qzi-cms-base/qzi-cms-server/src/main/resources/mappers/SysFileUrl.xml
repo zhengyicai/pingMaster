@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qzi.cms.server.mapper.SysFileUrlMapper">
+    <!-- 注册界面获取小区数据 -->
+    <select id="findAll" resultType="SysFileUrlVo" parameterType="SysFileUrlVo">
+        select * from sys_fileUrl
+        <where>
+            1=1 and  state='10'
+
+            <if test="model.userName != null and model.userName !='' and model.fileUrl!=''">
+                and  (userName = #{model.userName})
+            </if>
+            <if test="model.userName != null and model.userName !='' and model.fileUrl==''">
+                and  (userName = #{model.userName} or userName='adminA')
+            </if>
+
+
+
+            <if test="model.remark != null and model.remark !=''">
+                <bind name="pun" value="'%'+model.remark+'%'"/>
+                                   and  (remark LIKE #{pun} or remark LIKE #{pun})
+            </if>
+
+            <if test="model.userId != null and model.userId !=''">
+                and userId = #{model.userId}
+            </if>
+            <if test="model.type != null and model.type !=''">
+                and type = #{model.type}
+            </if>
+            <if test="model.standards != null and model.standards !=''">
+                            and standards = #{model.standards}
+            </if>
+
+
+
+            <if test="model.classes != null and model.classes !=''">
+                and classes = #{model.classes}
+            </if>
+
+
+        </where>
+        order by createTime desc
+        limit #{startRow}, #{pageSize};
+    </select>
+
+    <select id="findCount" resultType="long" parameterType="SysFileUrlVo">
+        select count(1) from sys_fileUrl
+        <where>
+                    1=1 and  state='10'
+
+                    <if test="model.userName != null and model.userName !='' and model.fileUrl!=''">
+                        and  (userName = #{model.userName})
+
+                    </if>
+                    <if test="model.userName != null and model.userName !='' and model.fileUrl==''">
+                        and  (userName = #{model.userName} or userName='adminA')
+
+                    </if>
+
+                    <if test="model.remark != null and model.remark !=''">
+                        <bind name="pun" value="'%'+model.remark+'%'"/>
+                          and  (remark LIKE #{pun} or remark LIKE #{pun})
+                    </if>
+                    <if test="model.userId != null and model.userId !=''">
+                        and userId = #{model.userId}
+                    </if>
+                    <if test="model.type != null and model.type !=''">
+                        and type = #{model.type}
+                    </if>
+                    <if test="model.standards != null and model.standards !=''">
+                                    and standards = #{model.standards}
+                    </if>
+                    <!--<if test="model.state != null and model.state !=''">-->
+                                       <!--and state = #{model.state}-->
+                    <!--</if>-->
+            <if test="model.classes != null and model.classes !=''">
+                and classes = #{model.classes}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
